@@ -14,7 +14,7 @@
 
 
 \begin{abstract}
-With the introduction of powerful telescopes such as the Hubble Space Telescope, vast quantities of high-fidelity imagery of remote galaxies have become available. Manual analysis of these images by experts has become infeasible, spawning citizen science projects such as Galaxy Zoo. However, the next generation of telescopes are expected to generate enormous volumes of data, going far beyond the capacity even of crowdsourced volunteers. In this study, we will extend the work done on automatic galaxy image classification in the Galaxy Zoo 2 challenge by developing a mapping between the various Galaxy Zoo ``classification trees" and the popular Hubble Tuning Fork model. We will build a convolutional neural network to classify galaxies by leveraging the various crowdsourced Galaxy Zoo ``gold standard" datasets. The model will be tested against expert-annotated datasets using the Tuning Fork scheme.
+With the introduction of powerful telescopes such as the Hubble Space Telescope, vast quantities of high-fidelity imagery of remote galaxies have become available. Manual analysis of these images by experts has become infeasible, spawning citizen science projects such as Galaxy Zoo. However, the next generation of telescopes are expected to generate enormous volumes of data, going far beyond the capacity even of crowdsourced volunteers. In this study, we will extend the work done on automatic galaxy image classification in the Galaxy Zoo 2 challenge by developing a mapping between the various Galaxy Zoo ``classification trees" and the popular Hubble Tuning Fork model. We will build a convolutional neural network to classify galaxies by leveraging the various crowdsourced Galaxy Zoo ``gold standard" datasets. The model will be tested against expert-annotated classifications using third-party images.
 \end{abstract}
 
 
@@ -40,7 +40,7 @@ In the astronomical community, the few automated galaxy classification systems h
 
 \cite{2016ApJS..223...20K} made use of ``super clean" galaxies from the Galaxy Zoo 1 catalog \citep{2008MNRAS.389.1179L} to classify galaxies into spirals and ellipticals. They made use of an algorithm that extracted 2885 numerical descriptions from each image.
 
-The Galaxy Zoo Kaggle challenge showed the power of convolutional neural networks (CNNs) when it comes to image recognition. Participants were forbidden from making use of any domain knowledge when building their models (e.g. ellipticals tend to be red and spirals blue)
+The Galaxy Zoo Kaggle challenge showed the power of convolutional neural networks (CNNs) when it comes to galaxy classification. Rather than relying on domain knowledge, the models had to learn to identify features on their own and were able to successfully reproduce the probabililty distributions of the citizen scientists. The winning model created 16 transformations for each image through the use of rotations and translations and trained the model on all 16 at once using convoluational layers and pooling.
 
 \cite{2015MNRAS.450.1441D}
 
@@ -54,22 +54,28 @@ The Galaxy Zoo Kaggle challenge showed the power of convolutional neural network
 \section{Approach}
 As dicussed earlier, the existing systems from the Galaxy Zoo Kaggle challenge do an excellent job of replicating the classifications of citizen science volunteers on the Galaxy Zoo 2 dataset. However, it would be useful to develop an automated system based on the large annotated datasets in Galaxy Zoo projects to classify new imagery from other data sources using the popular Hubble Tuning Fork scheme. We will develop a mapping between the two classification schemes and develop such a machine learning system. 
 
-Our model will differ slightly from the format of the Kaggle challenge. The Kaggle Galaxy Zoo challenge formulated the problem as a regression on the class probabilities, defined as the ratio of citizen science volunteers that gave a given galaxy a certain classification. To match the structure of our gold standard Tuning Fork scheme data, we will instead treat this as a classification problem and select only those galaxies whose vote fractions are within our chosen threshold for each Hubble type.
+Our model will differ slightly from the format of the Kaggle challenge. The Kaggle Galaxy Zoo challenge formulated the problem as a regression on the class probabilities, defined as the ratio of citizen science volunteers that gave a given galaxy a certain classification. To match the structure of our gold standard Tuning Fork scheme data, we will instead treat this as a classification problem and select only those galaxies whose vote fractions are within our chosen threshold for each Hubble type. This will favor the more nearby galaxies, whose properties the top performing model in the Kaggle competition had a harder time predicting accurately. Hopefully, this will lead to an improvement in that regard, as well as make our model more useful as an interactive tool, and serve as a complement to the galaxy classification lab in \emph{Stars, Galaxies, and the Universe}.
 
+Based on prior work, the best approach to galaxy classification appears to be a Deep Convolutional Neural Network. The top image recognition CNNs in recent years have use the inception model \citep{2014arXiv1409.4842S} as a building block in their networks. We will follow this trend.
+
+
+Since many of the images used in Galaxy Zoo 2 had significant disagreement among the citizen scientists, we will attempt to achieve better results by incorporating the results from Galazy Zoo 1, Galazy Zoo: Hubble, and Galaxy Zoo: CANDELS, and pruning the dataset. Galaxy Zoo 1, which is the largest of the datasets, will be mostly inadequate for classification purposes as it aimed at determining whether something was a spiral, elliptical, edge on disk, or a merging system (irregular). It will, however, provide a good dataset for initial testing to verify that we can separate the basic mophologies. The three remaining Galaxy Zoo projects asked similar questions, allowing for similar mapping schemes to the Hubble tuning fork.
+
+\cite{2014arXiv1409.4842S}
 
 \section{Plan}
-Based on prior work, the best approach to galaxy classification appears to be a Deep Convolutional Neural Network. The python module Keras, using a Tensorflow backend, will be used to build our CNN. We'll likely follow the basis of the inception model [cite], which has been the building block of the top image classifiers in recent years.
+\begin{itemize}
+\item	Map GZ to HTF
+\item	Build CNN -- test on GZ1 data
+\item	Test on HTF types; fine-tune parameters
+\item	Test against HTF types from other sources
+\end{itemize}
 
-Since many of the images used in Galaxy Zoo 2 had significant disagreement among the citizen scientists, we will attempt to achieve better results by incorporating the results from Galazy Zoo 1, Galazy Zoo: Hubble, and Galaxy Zoo: CANDELS, and pruning the dataset. Galaxy Zoo 1, which is the largest of the datasets, will be mostly inadequate for classification purposes as it aimed at determining whether something was a spiral, elliptical, lenticular (S0), or a merging system (irregular). It will, however, provide a good dataset for initial testing to verify that we can separate the basic mophologies. The three remaining Galaxy Zoo projects asked similar questions, allowing for similar mapping schemes to the Hubble tuning fork.
-
-With large datasets, CNNs become computationally expensive, and can take a very long time to run. We will attempt to gain access to GPUs on the cluster. If this proves infeasible, we can reduce our numbers of images by requiring higher thresholds, or reduce the computation costs by using grey-scaled images.
-
-Finally, our model will evaluated on expert-annoted datasets using images taken by other observatories, such as the Iowa Robotic Observatory.
 
 
 \begin{figure}[!t]
 \plotone{img/M51.pdf}
-\caption{Unfiltered image of the Whirlpool Galaxy (Sb), taken with the Iowa Robotic Observatory..}
+\caption{Unfiltered image of the Whirlpool Galaxy (Sb), taken with the Iowa Robotic Observatory.}
 \end{figure}
 
 We would like to acknowledge the work of the Galaxy Zoo team and the countless citizen volunteers in collecting and annotating the massive Galaxy Zoo dataset that makes this work possible. 
