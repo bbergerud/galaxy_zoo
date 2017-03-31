@@ -6,7 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{5}%
+\begin{thebibliography}{7}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -82,6 +82,26 @@
   }\textbf {\bibinfo {volume} {435}},\ \bibinfo {pages} {2835} (\bibinfo {year}
   {2013})},\ \Eprint {http://arxiv.org/abs/1308.3496} {arXiv:1308.3496}
   \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {{Dieleman}}\ \emph {et~al.}(2015)\citenamefont
+  {{Dieleman}}, \citenamefont {{Willett}},\ and\ \citenamefont
+  {{Dambre}}}]{2015MNRAS.450.1441D}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {{Dieleman}}}, \bibinfo {author} {\bibfnamefont {K.~W.}\ \bibnamefont
+  {{Willett}}}, \ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
+  {{Dambre}}},\ }\href {\doibase 10.1093/mnras/stv632} {\bibfield  {journal}
+  {\bibinfo  {journal} {\mnras}\ }\textbf {\bibinfo {volume} {450}},\ \bibinfo
+  {pages} {1441} (\bibinfo {year} {2015})},\ \Eprint
+  {http://arxiv.org/abs/1503.07077} {arXiv:1503.07077 [astro-ph.IM]}
+  \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {{de la Calleja}}\ and\ \citenamefont
+  {{Fuentes}}(2004)}]{2004MNRAS.349...87D}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {{de
+  la Calleja}}}\ and\ \bibinfo {author} {\bibfnamefont {O.}~\bibnamefont
+  {{Fuentes}}},\ }\href {\doibase 10.1111/j.1365-2966.2004.07442.x} {\bibfield
+  {journal} {\bibinfo  {journal} {\mnras}\ }\textbf {\bibinfo {volume} {349}},\
+  \bibinfo {pages} {87} (\bibinfo {year} {2004})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {{Kuminski}}\ and\ \citenamefont
   {{Shamir}}(2016)}]{2016ApJS..223...20K}%
   \BibitemOpen
@@ -114,18 +134,16 @@
   {\mnras}\ }\textbf {\bibinfo {volume} {389}},\ \bibinfo {pages} {1179}
   (\bibinfo {year} {2008})},\ \Eprint {http://arxiv.org/abs/0804.4483}
   {arXiv:0804.4483} \BibitemShut {NoStop}%
-\bibitem [{\citenamefont {{Dieleman}}\ \emph {et~al.}(2015)\citenamefont
-  {{Dieleman}}, \citenamefont {{Willett}},\ and\ \citenamefont
-  {{Dambre}}}]{2015MNRAS.450.1441D}%
+\bibitem [{\citenamefont {{Gauthier}}\ \emph {et~al.}(2016)\citenamefont
+  {{Gauthier}}, \citenamefont {{Jain}},\ and\ \citenamefont
+  {{Noordeh}}}]{stanford}%
   \BibitemOpen
-  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
-  {{Dieleman}}}, \bibinfo {author} {\bibfnamefont {K.~W.}\ \bibnamefont
-  {{Willett}}}, \ and\ \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
-  {{Dambre}}},\ }\href {\doibase 10.1093/mnras/stv632} {\bibfield  {journal}
-  {\bibinfo  {journal} {\mnras}\ }\textbf {\bibinfo {volume} {450}},\ \bibinfo
-  {pages} {1441} (\bibinfo {year} {2015})},\ \Eprint
-  {http://arxiv.org/abs/1503.07077} {arXiv:1503.07077 [astro-ph.IM]}
-  \BibitemShut {NoStop}%
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont
+  {{Gauthier}}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {{Jain}}},
+  \ and\ \bibinfo {author} {\bibfnamefont {E.}~\bibnamefont {{Noordeh}}},\
+  }\href
+  {http://cs229.stanford.edu/proj2016/report/GauthierJainNoordeh-GalaxyMorphology-report.pdf}
+  {\  (\bibinfo {year} {2016})}\BibitemShut {NoStop}%
 \bibitem [{\citenamefont {{Szegedy}}\ \emph {et~al.}(2014)\citenamefont
   {{Szegedy}}, \citenamefont {{Liu}}, \citenamefont {{Jia}}, \citenamefont
   {{Sermanet}}, \citenamefont {{Reed}}, \citenamefont {{Anguelov}},

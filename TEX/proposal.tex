@@ -43,9 +43,15 @@ To answer these questions, we will develop a mapping system between the various 
 
 
 \section{Related Work}
-In the astronomical community, the few automated galaxy classification systems have relied on more tradition methods, focusing on aggressive feature extraction algorithms making use of domain knowledge (such as WND-CHARM) to identify relationships among galaxies. These, however, have tended to focus on the more narrow classification of spirals and ellipticals, occasionally including edge-on spirals and irregular galaxies, and often work with much smaller datasets (see \citealt{2015MNRAS.450.1441D} for a discussion).
+In the astronomical community, the few automated galaxy classification systems have relied on more tradition methods, focusing on aggressive feature extraction algorithms making use of domain knowledge (such as WND-CHARM) to identify relationships among galaxies. These, however, have tended to focus on the more narrow classification of spirals and ellipticals, occasionally including edge-on spirals and irregular galaxies, and often work with much smaller datasets (see \citealt{2015MNRAS.450.1441D} for a discussion). While the top methods can achieve $\sim95\%$ when separating ellipticals and spirals, they tend to perform much worse when the number of categories increases \citep{2004MNRAS.349...87D}.
 
 One example of the simple classification approach was done by \cite{2016ApJS..223...20K}, who, rather uniquely, made use of the ``super clean" galaxies from the Galaxy Zoo 1 catalog \citep{2008MNRAS.389.1179L} to classify 3 000 000 galaxies into spirals and ellipticals. They made use of an algorithm that extracted 2885 numerical descriptions from each image (... not really sure how they did their classifying)
+
+\cite{stanford}, students in Prof. Ng's machine learning class at Stanford, recently looked at several machine learning methods for classifying galaxies using the GZ2 dataset. While acknowledging the difficulty of directly classifying to the Hubble types, they sought to bridge the gap by modeling certain features, such as ``roundness" and ``diskiness". They utilized the GZ2 decision tree to assign each galaxy to one of five categories: disc, spiral, elliptical, round, and other. In their preprocessing stage, images were cropped to reduce the file size, as well as reduce the number of nearby sources contaiminating the images. The galaxies were then rotated to align the principle axis, before proceeding with a background subtraction.
+
+To further reduce the dimensionality of the problem, the authors applied principal component analysis (PCA), selecting the top 125 components to maintain $>99\%$ of the variance. To classify the galaxies, they utilized a support vector machine (SVM) with a radial basis function (RBF) kernel, a decision tree, random forest, k-nearest neighbors, and an AdaBoost classifier, determing the classification accuracy using 10-fold cross validation. Overall, random forest produce the best results, achieving 67\% accuracy. The poor success rate lead them to look into predicting probabilities (regression) rather than directly modeling the classes, similar to the Galaxy Zoo Kaggle challenge. They achieved better results in this regard, attaining $\sim 95\%$ accuracy
+
+Overall, the biggest source of error was misclassifying spiral galaxies into the ``other" category, which they attributed to the faintness (low signal-to-noise) of the spiral arms in many images. In addition, examining Figure 3 and comparing the original image with the 125 PC image, it appears that their method may hinder extracting the spiral arms, smoothing the disk and making classification more difficult. While this may be necessary for more traditional machine learning methods, deep learning can deal directly with the large feature space.
 
 The Galaxy Zoo Kaggle challenge showed the power of convolutional neural networks (CNNs) when it comes to galaxy classification. Rather than relying on domain knowledge, the models had to learn to identify features on their own and were able to successfully reproduce the probabililty distributions of the citizen scientists. The winning model created 16 transformations for each image through the use of rotations and translations and trained the model on all 16 at once using convolutional layers and pooling.
 
@@ -54,6 +60,12 @@ The Galaxy Zoo Kaggle challenge showed the power of convolutional neural network
 %\plottwo{img/GZ2_network.png}{img/GZ2_CNN.png}
 \caption{Processing pipeline for the top model in the Galaxy Zoo Kaggle competition. From \cite{2015MNRAS.450.1441D}.}
 \end{figure*}
+
+\begin{figure}[!t]
+\plotone{img/inception.png}
+\caption{Inception block. The top image recognition CNNs in recent years use many inception blocks in their networks. From \cite{2014arXiv1409.4842S}.}
+\label{fig:inception}
+\end{figure}
 
 \cite{2015MNRAS.450.1441D}
 
@@ -65,18 +77,17 @@ Our model will differ slightly from the format of the Kaggle challenge. The Kagg
 
 Based on prior work, the best approach to galaxy classification appears to be a Deep Convolutional Neural Network. The top image recognition CNNs in recent years have used the inception model \citep{2014arXiv1409.4842S} as a building block in their networks (Figure \ref{fig:inception}). We will follow this trend.
 
-\begin{figure}[!t]
-\plotone{img/inception.png}
-\caption{Inception block. The top image recognition CNNs in recent years have many inception blocks in their networks. From \citep{2014arXiv1409.4842S}.}
-\label{fig:inception}
-\end{figure}
-
 
 Since many of the images used in Galaxy Zoo 2 had poor consensus among the citizen scientists, we will attempt to achieve better results by incorporating the results from Galazy Zoo 1, Galazy Zoo: Hubble, and Galaxy Zoo: CANDELS, and pruning the dataset. Galaxy Zoo 1, which is the largest of the datasets, will be mostly inadequate for classification purposes as it aimed at determining whether something was a spiral, elliptical, edge-on disk, or a merging system (irregular). It will, however, provide a good dataset for initial testing to verify that we can separate the basic mophologies. The three remaining Galaxy Zoo projects asked similar questions, allowing for similar mapping schemes to the Hubble tuning fork.
 
 
 \section{Plan}
 
+
+\begin{figure}
+\plotone{img/M51.pdf}
+\caption{Unfiltered image of the Whirlpool Galaxy (Sb), taken with the Iowa Robotic Observatory.}
+\end{figure}
 
 \begin{itemize}
 \item	Map GZ to HTF
@@ -91,10 +102,6 @@ CNNs and inherently computationally expensive and can take a long time to train,
 
 These contraints can be contrasted with the winning Kaggle model, which tested around 100 different network schemes and averaged 17 of them to get the final probabilities. (70 hours to train)
 
-\begin{figure}[!t]
-\plotone{img/M51.pdf}
-\caption{Unfiltered image of the Whirlpool Galaxy (Sb), taken with the Iowa Robotic Observatory.}
-\end{figure}
 
 We would like to acknowledge the work of the Galaxy Zoo team and the countless citizen volunteers in collecting and annotating the massive Galaxy Zoo dataset that makes this work possible. 
 
