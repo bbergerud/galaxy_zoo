@@ -6,7 +6,7 @@
 %Control: page (0) single
 %Control: year (1) truncated
 %Control: production of eprint (0) enabled
-\begin{thebibliography}{3}%
+\begin{thebibliography}{5}%
 \makeatletter
 \providecommand \@ifxundefined [1]{%
  \@ifx{#1\undefined}
@@ -50,6 +50,38 @@
 \providecommand \BibitemShut  [1]{\csname bibitem#1\endcsname}%
 \let\auto@bib@innerbib\@empty
 %</preamble>
+\bibitem [{\citenamefont {{Willett}}\ \emph {et~al.}(2013)\citenamefont
+  {{Willett}}, \citenamefont {{Lintott}}, \citenamefont {{Bamford}},
+  \citenamefont {{Masters}}, \citenamefont {{Simmons}}, \citenamefont
+  {{Casteels}}, \citenamefont {{Edmondson}}, \citenamefont {{Fortson}},
+  \citenamefont {{Kaviraj}}, \citenamefont {{Keel}}, \citenamefont {{Melvin}},
+  \citenamefont {{Nichol}}, \citenamefont {{Raddick}}, \citenamefont
+  {{Schawinski}}, \citenamefont {{Simpson}}, \citenamefont {{Skibba}},
+  \citenamefont {{Smith}},\ and\ \citenamefont
+  {{Thomas}}}]{2013MNRAS.435.2835W}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {K.~W.}\ \bibnamefont
+  {{Willett}}}, \bibinfo {author} {\bibfnamefont {C.~J.}\ \bibnamefont
+  {{Lintott}}}, \bibinfo {author} {\bibfnamefont {S.~P.}\ \bibnamefont
+  {{Bamford}}}, \bibinfo {author} {\bibfnamefont {K.~L.}\ \bibnamefont
+  {{Masters}}}, \bibinfo {author} {\bibfnamefont {B.~D.}\ \bibnamefont
+  {{Simmons}}}, \bibinfo {author} {\bibfnamefont {K.~R.~V.}\ \bibnamefont
+  {{Casteels}}}, \bibinfo {author} {\bibfnamefont {E.~M.}\ \bibnamefont
+  {{Edmondson}}}, \bibinfo {author} {\bibfnamefont {L.~F.}\ \bibnamefont
+  {{Fortson}}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+  {{Kaviraj}}}, \bibinfo {author} {\bibfnamefont {W.~C.}\ \bibnamefont
+  {{Keel}}}, \bibinfo {author} {\bibfnamefont {T.}~\bibnamefont {{Melvin}}},
+  \bibinfo {author} {\bibfnamefont {R.~C.}\ \bibnamefont {{Nichol}}}, \bibinfo
+  {author} {\bibfnamefont {M.~J.}\ \bibnamefont {{Raddick}}}, \bibinfo {author}
+  {\bibfnamefont {K.}~\bibnamefont {{Schawinski}}}, \bibinfo {author}
+  {\bibfnamefont {R.~J.}\ \bibnamefont {{Simpson}}}, \bibinfo {author}
+  {\bibfnamefont {R.~A.}\ \bibnamefont {{Skibba}}}, \bibinfo {author}
+  {\bibfnamefont {A.~M.}\ \bibnamefont {{Smith}}}, \ and\ \bibinfo {author}
+  {\bibfnamefont {D.}~\bibnamefont {{Thomas}}},\ }\href {\doibase
+  10.1093/mnras/stt1458} {\bibfield  {journal} {\bibinfo  {journal} {\mnras}\
+  }\textbf {\bibinfo {volume} {435}},\ \bibinfo {pages} {2835} (\bibinfo {year}
+  {2013})},\ \Eprint {http://arxiv.org/abs/1308.3496} {arXiv:1308.3496}
+  \BibitemShut {NoStop}%
 \bibitem [{\citenamefont {{Kuminski}}\ and\ \citenamefont
   {{Shamir}}(2016)}]{2016ApJS..223...20K}%
   \BibitemOpen
@@ -94,4 +126,22 @@
   {pages} {1441} (\bibinfo {year} {2015})},\ \Eprint
   {http://arxiv.org/abs/1503.07077} {arXiv:1503.07077 [astro-ph.IM]}
   \BibitemShut {NoStop}%
+\bibitem [{\citenamefont {{Szegedy}}\ \emph {et~al.}(2014)\citenamefont
+  {{Szegedy}}, \citenamefont {{Liu}}, \citenamefont {{Jia}}, \citenamefont
+  {{Sermanet}}, \citenamefont {{Reed}}, \citenamefont {{Anguelov}},
+  \citenamefont {{Erhan}}, \citenamefont {{Vanhoucke}},\ and\ \citenamefont
+  {{Rabinovich}}}]{2014arXiv1409.4842S}%
+  \BibitemOpen
+  \bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.}~\bibnamefont
+  {{Szegedy}}}, \bibinfo {author} {\bibfnamefont {W.}~\bibnamefont {{Liu}}},
+  \bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {{Jia}}}, \bibinfo
+  {author} {\bibfnamefont {P.}~\bibnamefont {{Sermanet}}}, \bibinfo {author}
+  {\bibfnamefont {S.}~\bibnamefont {{Reed}}}, \bibinfo {author} {\bibfnamefont
+  {D.}~\bibnamefont {{Anguelov}}}, \bibinfo {author} {\bibfnamefont
+  {D.}~\bibnamefont {{Erhan}}}, \bibinfo {author} {\bibfnamefont
+  {V.}~\bibnamefont {{Vanhoucke}}}, \ and\ \bibinfo {author} {\bibfnamefont
+  {A.}~\bibnamefont {{Rabinovich}}},\ }\href@noop {} {\bibfield  {journal}
+  {\bibinfo  {journal} {ArXiv e-prints}\ } (\bibinfo {year} {2014})},\ \Eprint
+  {http://arxiv.org/abs/1409.4842} {arXiv:1409.4842 [cs.CV]} \BibitemShut
+  {NoStop}%
 \end{thebibliography}%

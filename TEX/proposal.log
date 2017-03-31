@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2016/dev) (preloaded format=pdflatex 2017.3.15)  30 MAR 2017 16:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2016/dev) (preloaded format=pdflatex 2017.3.15)  31 MAR 2017 12:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -496,53 +496,86 @@ Class revtex4-1 Warning: Assuming \noaffiliation for authors.
 
 Missing character: There is no ¬ in font cmr10!
 Missing character: There is no † in font cmr10!
-<img/GZ2_tree.png, id=4, 670.505pt x 546.04pt>
+<img/GZ2_tree.png, id=4, 1164.35pt x 878.28125pt>
 File: img/GZ2_tree.png Graphic file (type png)
  <use img/GZ2_tree.png>
 Package pdftex.def Info: img/GZ2_tree.png used on input line 31.
-(pdftex.def)             Requested size: 208.47804pt x 169.77888pt.
+(pdftex.def)             Requested size: 208.47804pt x 157.25291pt.
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ú in font cmr10!
 Missing character: There is no ‚ in font cmr10!
 Missing character: There is no Ä in font cmr10!
 Missing character: There is no ù in font cmr10!
- [1{/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map} <./img/GZ
-2_tree.png>] <img/tuningFork.pdf, id=25, 722.7pt x 1011.78pt>
+
+[1{/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map} <./img/GZ2
+_tree.png>] <img/tuningFork.pdf, id=27, 722.7pt x 1011.78pt>
 File: img/tuningFork.pdf Graphic file (type pdf)
- <use img/tuningFork.pdf>
-Package pdftex.def Info: img/tuningFork.pdf used on input line 48.
+
+<use img/tuningFork.pdf>
+Package pdftex.def Info: img/tuningFork.pdf used on input line 39.
 (pdftex.def)             Requested size: 208.47804pt x 291.86484pt.
 
-Underfull \hbox (badness 4132) in paragraph at lines 49--49
+Underfull \hbox (badness 4132) in paragraph at lines 40--40
 [][]\OT1/cmr/m/n/10 . []Hubble's tun-ing fork model. From
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 49--49
+Underfull \hbox (badness 10000) in paragraph at lines 40--40
 \OT1/cmr/m/n/10 http://ay17-chusic.blogspot.com/2015/10/20-hubble-
  []
 
-[2 <./img/tuningFork.pdf>] <img/M51.pdf, id=42, 530.0352pt x 527.02396pt>
-File: img/M51.pdf Graphic file (type pdf)
+<img/GZ2_network.png, id=34, 1133.23375pt x 855.195pt>
+File: img/GZ2_network.png Graphic file (type png)
 
-<use img/M51.pdf>
-Package pdftex.def Info: img/M51.pdf used on input line 71.
+<use img/GZ2_network.png>
+Package pdftex.def Info: img/GZ2_network.png used on input line 53.
+(pdftex.def)             Requested size: 436.15294pt x 329.14018pt.
+ <img/inception.png, id=42, 1246.6575pt x 646.415pt>
+File: img/inception.png Graphic file (type png)
+
+<use img/inception.png>
+Package pdftex.def Info: img/inception.png used on input line 69.
+(pdftex.def)             Requested size: 208.47804pt x 108.09393pt.
+ [2 <./img/tuningFork.pdf>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 82.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 82.
+
+<img/M51.pdf, id=64, 530.0352pt x 527.02396pt>
+File: img/M51.pdf Graphic file (type pdf)
+ <use img/M51.pdf>
+Package pdftex.def Info: img/M51.pdf used on input line 95.
 (pdftex.def)             Requested size: 208.47804pt x 207.29161pt.
- (./proposal.bbl) [3 <./img/M51.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 80.
+
+(./proposal.bbl [3 <./img/GZ2_network.png> <./img/inception.png>]
+
+LaTeX Warning: A float is stuck (cannot be placed) on input line 9.
+
+
+LaTeX Warning: A float is stuck (cannot be placed) on input line 9.
+
+
+Class revtex4-1 Warning: Deferred float stuck during \clearpage processing.
+
+) [4 <./img/M51.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 104.
  (./proposal.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 80.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 80.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 104.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 104.
  ) 
 Here is how much of TeX's memory you used:
- 8718 strings out of 493096
- 120906 string characters out of 6137361
- 251011 words of memory out of 5000000
- 12101 multiletter control sequences out of 15000+600000
+ 8769 strings out of 493096
+ 121851 string characters out of 6137361
+ 254573 words of memory out of 5000000
+ 12142 multiletter control sequences out of 15000+600000
  11731 words of font info for 47 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
- 36i,6n,37p,941b,327s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 36i,6n,37p,949b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texli
@@ -550,11 +583,12 @@ ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmti10.pfb>
-Output written on proposal.pdf (3 pages, 528656 bytes).
+/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmti10.pfb>
+Output written on proposal.pdf (4 pages, 1144829 bytes).
 PDF statistics:
- 93 PDF objects out of 1000 (max. 8388607)
- 73 compressed objects within 1 object stream
- 14 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 131 PDF objects out of 1000 (max. 8388607)
+ 100 compressed objects within 1 object stream
+ 19 named destinations out of 1000 (max. 500000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
