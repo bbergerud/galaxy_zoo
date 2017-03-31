@@ -22,7 +22,7 @@
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}
 
-\title{Proposal Template for Machine Learning Course}
+\title{Hubble's Tuning Fork: \\A Machine Learning Approach}
 
 % The \author macro works with any number of authors. There are two
 % commands used to separate the names and addresses of multiple
@@ -35,19 +35,18 @@
 % author name.
 
 \author{
-  XXX\thanks{Use footnote for providing further
-    information about author (webpage, alternative
-    address)---\emph{not} for acknowledging funding agencies.} \\
-  Department of Computer Science\\
+  Brandon Bergerud \\
+  Department of Physics and Astronomy\\
   University of Iowa\\
   Iowa City, IA  52242 \\
-  \texttt{xxx@uiowa.edu} \\
+  \texttt{brandon-bergerud@uiowa.edu} \\
   %% examples of more authors
-  %% \And
-  %% Coauthor \\
-  %% Affiliation \\
-  %% Address \\
-  %% \texttt{email} \\
+  \And
+  Ossian Mogensen \\
+  Department of Computer Science \\
+  University of Iowa \\
+  Iowa City, IA  52242 \\
+  \texttt{ossian-mogensen@uiowa.edu} \\
   %% \AND
   %% Coauthor \\
   %% Affiliation \\
@@ -85,22 +84,37 @@ The Galaxy Zoo Kaggle challenge was a competition in 2013 to produce a machine l
 
 To answer these questions, we will develop a mapping system between the various Galaxy Zoo “decision tree” classification schemes and the Hubble Tuning Fork scheme. We will develop a machine learning system to produce Tuning Fork classifications and train it on data from the Galaxy Zoo projects. We will then locate 3rd party datasets of expert-annotated galaxy images and test our system on these images. This project will investigate the generalizability of the Galaxy Zoo training data and the feasibility of mapping between the two galaxy classification schemes. 
 
+
 \begin{figure}[h]
   \centering
 	\includegraphics[width=100mm]{../img/GZ2_tree.png}
   \caption{The Galaxy Zoo 2 decision tree. Image from \cite{2013MNRAS.435.2835W}.}
+  \label{fig:GZ2tree}
 \end{figure}
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=100mm]{../img/tuningFork.pdf}
+  \caption{Hubble's tuning fork model. From http://ay17-chusic.blogspot.com/2015/10/20-hubble-tuning-fork.html}
+  \label{fig:tuningFork}
+\end{figure}
+
 
 \section{Related Work}
 \label{gen_inst}
-In the astronomical community, the few automated galaxy classification systems have relied on more tradition methods, focusing on aggressive feature extraction algorithms making use of domain knowledge (such as WND-CHARM) to identify relationships among galaxies. These, however, have tended to focus on the more narrow classification of spirals and ellipticals, occasionally including edge-on spirals and irregular galaxies, and often work with much smaller datasets.
+In the astronomical community, the few automated galaxy classification systems have relied on more tradition methods, focusing on aggressive feature extraction algorithms making use of domain knowledge (such as WND-CHARM) to identify relationships among galaxies. These, however, have tended to focus on the more narrow classification of spirals and ellipticals, occasionally including edge-on spirals and irregular galaxies, and often work with much smaller datasets (see \citealt{2015MNRAS.450.1441D} for a discussion). While the top methods can achieve $\sim95\%$ when separating ellipticals and spirals, they tend to perform much worse when the number of categories increases \citep{2004MNRAS.349...87D}.
 
-One example of the simple classification approach was done by \cite{2016ApJS..223...20K}, who, rather uniquely, made use of the ``super clean" galaxies from the Galaxy Zoo 1 catalog \citep{2008MNRAS.389.1179L} to classify 900 000 galaxies into spirals and ellipticals. They made use of an algorithm that extracted 2885 numerical descriptions from each image.
+One example of the simple classification approach was done by \cite{2016ApJS..223...20K}, who, rather uniquely, made use of the ``super clean" galaxies from the Galaxy Zoo 1 catalog \citep{2008MNRAS.389.1179L} to classify 3 000 000 galaxies into spirals and ellipticals. They made use of an algorithm that extracted 2885 numerical descriptions from each image (... not really sure how they did their classifying)
+
+\cite{stanford}, students in Prof. Ng's machine learning class at Stanford, recently looked at several machine learning methods for classifying galaxies using the GZ2 dataset. While acknowledging the difficulty of directly classifying to the Hubble types, they sought to bridge the gap by modeling certain features, such as ``roundness" and ``diskiness". They utilized the GZ2 decision tree to assign each galaxy to one of five categories: disc, spiral, elliptical, round, and other. In their preprocessing stage, images were cropped to reduce the file size, as well as reduce the number of nearby sources contaiminating the images. The galaxies were then rotated to align the principle axis, before proceeding with a background subtraction.
+
+To further reduce the dimensionality of the problem, the authors applied principal component analysis (PCA), selecting the top 125 components to maintain $>99\%$ of the variance. To classify the galaxies, they utilized a support vector machine (SVM) with a radial basis function (RBF) kernel, a decision tree, random forest, k-nearest neighbors, and an AdaBoost classifier, determing the classification accuracy using 10-fold cross validation. Overall, random forest produce the best results, achieving 67\% accuracy. The poor success rate lead them to look into predicting probabilities (regression) rather than directly modeling the classes, similar to the Galaxy Zoo Kaggle challenge. They achieved better results in this regard, attaining $\sim 95\%$ accuracy
+
+Overall, the biggest source of error was misclassifying spiral galaxies into the ``other" category, which they attributed to the faintness (low signal-to-noise) of the spiral arms in many images. In addition, examining Figure 3 and comparing the original image with the 125 PC image, it appears that their method may hinder extracting the spiral arms, smoothing the disk and making classification more difficult. While this may be necessary for more traditional machine learning methods, deep learning can deal directly with the large feature space.
 
 The Galaxy Zoo Kaggle challenge showed the power of convolutional neural networks (CNNs) when it comes to galaxy classification. Rather than relying on domain knowledge, the models had to learn to identify features on their own and were able to successfully reproduce the probabililty distributions of the citizen scientists. The winning model created 16 transformations for each image through the use of rotations and translations and trained the model on all 16 at once using convolutional layers and pooling.
 
-
-
+\iffalse
 
 \subsection{Figures}
 
@@ -139,6 +153,7 @@ which allows for typesetting high-quality, professional tables:
 \end{center}
 This package was used to typeset Table~\ref{sample-table}.
 
+
 \begin{table}[t]
   \caption{Sample table title}
   \label{sample-table}
@@ -155,37 +170,67 @@ This package was used to typeset Table~\ref{sample-table}.
     \bottomrule
   \end{tabular}
 \end{table}
+\fi
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=130mm]{../img/GZ2_network.png}
+  \caption{Processing pipeline for the top model in the Galaxy Zoo Kaggle competition. From \cite{2015MNRAS.450.1441D}.}
+  \label{fig:GZ2_network}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=100mm]{../img/inception.png}
+  \caption{Inception block. The top image recognition CNNs in recent years use many inception blocks in their networks. From \cite{2014arXiv1409.4842S}.}
+  \label{fig:inception}
+\end{figure}
+
+
+
 
 \section{The Proposed Work}
 Describe your proposed work in this section. 
 
+ 
+
+
+As dicussed earlier, the existing systems from the Galaxy Zoo Kaggle challenge do an excellent job of replicating the voting patterns of citizen science volunteers on the Galaxy Zoo 2 dataset. However, it would be useful to develop an automated system based on the large annotated Galaxy Zoo datasets to classify new imagery from other sources using the popular Hubble Tuning Fork scheme. While this can be done to some extent using the kaggle models, it requires cross-correlating expertly annoted images to find the optimal probability cutoffs to transform the probability distributions to Hubble T-types, adding an additional layer of complexity that the machine wasn't required to learn. We will develop a mapping between the two classification schemes and develop such a machine learning system to directly classify images. 
+
+Our model will differ slightly from the format of the Kaggle challenge. The Kaggle Galaxy Zoo challenge formulated the problem as a regression on the class probabilities, defined as the ratio of citizen science volunteers that gave a given galaxy a certain classification. To match the structure of our gold standard Tuning Fork scheme data, we will instead treat this as a classification problem and select only those galaxies whose vote fractions are within our chosen threshold for each Hubble type. This will favor the more nearby galaxies, whose properties the top performing model in the Kaggle competition had a harder time predicting accurately, hopefully, leading to an improvement in that regard. In addition, it would serve as a more interactive tool that could serve as a complement to the galaxy classification lab in \emph{Stars, Galaxies, and the Universe}.
+
+Based on prior work, the best approach to galaxy classification appears to be a Deep Convolutional Neural Network. The top image recognition CNNs in recent years have used the inception model \citep{2014arXiv1409.4842S} as a building block in their networks (Figure \ref{fig:inception}). We will follow this trend.
+
+
+Since many of the images used in Galaxy Zoo 2 had poor consensus among the citizen scientists, we will attempt to achieve better results by incorporating the results from Galazy Zoo 1, Galazy Zoo: Hubble, and Galaxy Zoo: CANDELS, and pruning the dataset. Galaxy Zoo 1, which is the largest of the datasets, will be mostly inadequate for classification purposes as it aimed at determining whether something was a spiral, elliptical, edge-on disk, or a merging system (irregular). It will, however, provide a good dataset for initial testing to verify that we can separate the basic mophologies. The three remaining Galaxy Zoo projects asked similar questions, allowing for similar mapping schemes to the Hubble tuning fork.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=100mm]{../img/M51.pdf}
+  \caption{Unfiltered image of the Whirlpool Galaxy (Sb), taken with the Iowa Robotic Observatory.}
+  \label{fig:M51}
+\end{figure}
 
 
 \section{Plan}
-Describe your plan for the project. What data you are going to use to evaluate your methods? What are the baselines that you want to compare? How will you develop your methods?   A timeline with important milestones is always perferred. 
+Describe your plan for the project. What data you are going to use to evaluate your methods? What are the baselines that you want to compare? How will you develop your methods?   A timeline with important milestones is always perferred.
+
 
 
 \subsubsection*{Acknowledgments}
 
-Use unnumbered third level headings for the acknowledgments. All
-acknowledgments go at the end of the paper. Do not include
-acknowledgments in the anonymized submission, only in the final paper.
+We would like to acknowledge the work of the Galaxy Zoo team and the countless citizen volunteers in collecting and annotating the massive Galaxy Zoo dataset that makes this work possible. 
 
-\section*{References}
-
-References follow the acknowledgments. Use unnumbered first-level
-heading for the references. Any choice of citation style is acceptable
-as long as you are consistent. It is permissible to reduce the font
-size to \verb+small+ (9 point) when listing the references.
 
 \begin{thebibliography}{9}
+\bibitem[de la Calleja \& Fuentes(2004)]{2004MNRAS.349...87D} de la Calleja, J., \& Fuentes, O.\ 2004, MNRAS, 349, 87 
 \bibitem[Dieleman et al.(2015)]{2015MNRAS.450.1441D} Dieleman, S., Willett, K.~W., \& Dambre, J.\ 2015, MNRAS, 450, 1441 
 \bibitem[Kuminski \& Shamir(2016)]{2016ApJS..223...20K} Kuminski, E., \& Shamir, L.\ 2016, ApJS, 223, 20 
 \bibitem[Lintott et al.(2008)]{2008MNRAS.389.1179L} Lintott, C.~J., Schawinski, K., Slosar, A., et al.\ 2008, MNRAS, 389, 1179
 \bibitem[Szegedy et al.(2014)]{2014arXiv1409.4842S} Szegedy, C., Liu, W., Jia, Y., et al.\ 2014, arXiv:1409.4842 
 \bibitem[Willett et al.(2013)]{2013MNRAS.435.2835W} Willett, K.~W., Lintott, C.~J., Bamford, S.~P., et al.\ 2013, MNRAS, 435, 2835  
+\bibitem[Gauthier et al.(2016)]{stanford} Gauthier, A., Jain, A., Noordeh, E.\ 2016
 \end{thebibliography}
-
 
 
 \end{document}

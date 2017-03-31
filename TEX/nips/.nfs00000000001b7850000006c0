@@ -20,8 +20,9 @@
 \usepackage{amsfonts}       % blackboard math symbols
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
+\usepackage{graphicx}
 
-\title{Proposal Template for Machine Learning Course}
+\title{Hubble's Tuning Fork: \\A Machine Learning Approach}
 
 % The \author macro works with any number of authors. There are two
 % commands used to separate the names and addresses of multiple
@@ -34,19 +35,18 @@
 % author name.
 
 \author{
-  XXX\thanks{Use footnote for providing further
-    information about author (webpage, alternative
-    address)---\emph{not} for acknowledging funding agencies.} \\
-  Department of Computer Science\\
+  Brandon Bergerud \\
+  Department of Physics and Astronomy\\
   University of Iowa\\
   Iowa City, IA  52242 \\
-  \texttt{xxx@uiowa.edu} \\
+  \texttt{brandon-bergerud@uiowa.edu} \\
   %% examples of more authors
-  %% \And
-  %% Coauthor \\
-  %% Affiliation \\
-  %% Address \\
-  %% \texttt{email} \\
+  \And
+  Ossian Mogensen \\
+  Department of Computer Science \\
+  University of Iowa \\
+  Iowa City, IA  52242 \\
+  \texttt{ossian-mogensen@uiowa.edu} \\
   %% \AND
   %% Coauthor \\
   %% Affiliation \\
@@ -80,24 +80,39 @@ Astronomers have successfully turned to citizen science projects such as Galaxy 
 
 With the dawn of a new generation of telescopes, astronomy is threatened to be deluged in a sea of data. The GAIA spacecraft will produce a 3D map of over 1 billion astronomical objects. The Thirty Meter Telescope (TMT) and the 40-meter European Extremely Large Telecope (E-ELT) will view the visible universe at unprecedented depth. The Large Synoptic Survey Telescope (LSST) is estimated to generate 15 TB of data each night as it surveys the entire sky. Even these vast sums of data pale in comparision to the 1 TB/s output expected from the monsuvian Square Kilometer Array (SKA), which isn't limited to night time observing. Such enormous sums of data are beyond the ability of crowdsourcing to handle: they can only be handled by leveraging supercomputers, sophisticated algorithms, and machine learning.
 
-The Galaxy Zoo Kaggle challenge was a competition in 2013 to produce a machine learning model that could replicate the classifications of citizen science volunteers on a dataset of 70000 galaxy images captured by HST. The top models performed very well in this challenge, but several questions remain. Can the galaxy classification scheme used by Galaxy Zoo be effectively mapped to astronomical classification schemes such as Hubble's Tuning Fork, or the more complex de Vaucouleurs system? Will machine learning models trained on the Galaxy Zoo dataset generalize well to other sources? 
+The Galaxy Zoo Kaggle challenge was a competition in 2013 to produce a machine learning model that could replicate the classifications of citizen science volunteers on a dataset of 70 000 galaxy images captured by HST. The top models performed very well in this challenge, but several questions remain. Can the galaxy classification scheme used by Galaxy Zoo be effectively mapped to astronomical classification schemes such as Hubble's Tuning Fork, or the more complex de Vaucouleurs system? Will machine learning models trained on the Galaxy Zoo dataset generalize well to other sources? 
 
 To answer these questions, we will develop a mapping system between the various Galaxy Zoo “decision tree” classification schemes and the Hubble Tuning Fork scheme. We will develop a machine learning system to produce Tuning Fork classifications and train it on data from the Galaxy Zoo projects. We will then locate 3rd party datasets of expert-annotated galaxy images and test our system on these images. This project will investigate the generalizability of the Galaxy Zoo training data and the feasibility of mapping between the two galaxy classification schemes. 
 
+
 \begin{figure}[h]
   \centering
-	\includegraphic{../img/GZ2_tree.png}
+	\includegraphics[width=100mm]{../img/GZ2_tree.png}
   \caption{The Galaxy Zoo 2 decision tree. Image from \cite{2013MNRAS.435.2835W}.}
+  \label{fig:GZ2tree}
 \end{figure}
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=100mm]{../img/tuningFork.pdf}
+  \caption{Hubble's tuning fork model. From http://ay17-chusic.blogspot.com/2015/10/20-hubble-tuning-fork.html}
+  \label{fig:tuningFork}
+\end{figure}
+
 
 \section{Related Work}
 \label{gen_inst}
-In the astronomical community, the few automated galaxy classification systems have relied on more tradition methods, focusing on aggressive feature extraction algorithms making use of domain knowledge (such as WND-CHARM) to identify relationships among galaxies. These, however, have tended to focus on the more narrow classification of spirals and ellipticals, occasionally including edge-on spirals and irregular galaxies, and often work with much smaller datasets.
+In the astronomical community, the few automated galaxy classification systems have relied on more tradition methods, focusing on aggressive feature extraction algorithms making use of domain knowledge (such as WND-CHARM) to identify relationships among galaxies. These, however, have tended to focus on the more narrow classification of spirals and ellipticals, occasionally including edge-on spirals and irregular galaxies, and often work with much smaller datasets (see \citealt{2015MNRAS.450.1441D} for a discussion). While the top methods can achieve $\sim95\%$ when separating ellipticals and spirals, they tend to perform much worse when the number of categories increases \citep{2004MNRAS.349...87D}.
 
-One example of the simple classification approach was done by \cite{2016ApJS..223...20K}, who, rather uniquely, made use of the ``super clean" galaxies from the Galaxy Zoo 1 catalog \citep{2008MNRAS.389.1179L} to classify 900 000 galaxies into spirals and ellipticals. They made use of an algorithm that extracted 2885 numerical descriptions from each image.
+One example of the simple classification approach was done by \cite{2016ApJS..223...20K}, who, rather uniquely, made use of the ``super clean" galaxies from the Galaxy Zoo 1 catalog \citep{2008MNRAS.389.1179L} to classify 3 000 000 galaxies into spirals and ellipticals. They made use of an algorithm that extracted 2885 numerical descriptions from each image (... not really sure how they did their classifying)
+
+\cite{stanford}, students in Prof. Ng's machine learning class at Stanford, recently looked at several machine learning methods for classifying galaxies using the GZ2 dataset. While acknowledging the difficulty of directly classifying to the Hubble types, they sought to bridge the gap by modeling certain features, such as ``roundness" and ``diskiness". They utilized the GZ2 decision tree to assign each galaxy to one of five categories: disc, spiral, elliptical, round, and other. In their preprocessing stage, images were cropped to reduce the file size, as well as reduce the number of nearby sources contaiminating the images. The galaxies were then rotated to align the principle axis, before proceeding with a background subtraction.
+
+To further reduce the dimensionality of the problem, the authors applied principal component analysis (PCA), selecting the top 125 components to maintain $>99\%$ of the variance. To classify the galaxies, they utilized a support vector machine (SVM) with a radial basis function (RBF) kernel, a decision tree, random forest, k-nearest neighbors, and an AdaBoost classifier, determing the classification accuracy using 10-fold cross validation. Overall, random forest produce the best results, achieving 67\% accuracy. The poor success rate lead them to look into predicting probabilities (regression) rather than directly modeling the classes, similar to the Galaxy Zoo Kaggle challenge. They achieved better results in this regard, attaining $\sim 95\%$ accuracy
+
+Overall, the biggest source of error was misclassifying spiral galaxies into the ``other" category, which they attributed to the faintness (low signal-to-noise) of the spiral arms in many images. In addition, examining Figure 3 and comparing the original image with the 125 PC image, it appears that their method may hinder extracting the spiral arms, smoothing the disk and making classification more difficult. While this may be necessary for more traditional machine learning methods, deep learning can deal directly with the large feature space.
 
 The Galaxy Zoo Kaggle challenge showed the power of convolutional neural networks (CNNs) when it comes to galaxy classification. Rather than relying on domain knowledge, the models had to learn to identify features on their own and were able to successfully reproduce the probabililty distributions of the citizen scientists. The winning model created 16 transformations for each image through the use of rotations and translations and trained the model on all 16 at once using convolutional layers and pooling.
-
 
 
 
@@ -178,13 +193,14 @@ as long as you are consistent. It is permissible to reduce the font
 size to \verb+small+ (9 point) when listing the references.
 
 \begin{thebibliography}{9}
+\bibitem[de la Calleja \& Fuentes(2004)]{2004MNRAS.349...87D} de la Calleja, J., \& Fuentes, O.\ 2004, MNRAS, 349, 87 
 \bibitem[Dieleman et al.(2015)]{2015MNRAS.450.1441D} Dieleman, S., Willett, K.~W., \& Dambre, J.\ 2015, MNRAS, 450, 1441 
 \bibitem[Kuminski \& Shamir(2016)]{2016ApJS..223...20K} Kuminski, E., \& Shamir, L.\ 2016, ApJS, 223, 20 
 \bibitem[Lintott et al.(2008)]{2008MNRAS.389.1179L} Lintott, C.~J., Schawinski, K., Slosar, A., et al.\ 2008, MNRAS, 389, 1179
 \bibitem[Szegedy et al.(2014)]{2014arXiv1409.4842S} Szegedy, C., Liu, W., Jia, Y., et al.\ 2014, arXiv:1409.4842 
 \bibitem[Willett et al.(2013)]{2013MNRAS.435.2835W} Willett, K.~W., Lintott, C.~J., Bamford, S.~P., et al.\ 2013, MNRAS, 435, 2835  
+\bibitem[Gauthier et al.(2016)]{stanford} Gauthier, A., Jain, A., Noordeh, E.\ 2016
 \end{thebibliography}
-
 
 
 \end{document}
