@@ -165,6 +165,10 @@ The mapping of the galaxy zoo classification results can be done fairly quickly,
 
 For building the CNN, we will use the python module Keras with the Tensorflow backend. Since CNNs are computationally expensive, we will attempt to gain access to the GPUs on one (or both) of the Iowa clusters to reduce the computation time. Tensorflow is designed to make use of GPUs if present, thus requiring no additional programming on our part.
 
+After our final model has been trained, we will test its generalizability by using third party images of nearby galaxies and testing the classification results. Images taken with the Iowa Robotic Observatory could be one such third party source. In Figure \ref{fig:M51}, an unfiltered image of the Whirlpool Galaxy taken by the University of Iowa's Gemini telescope is shown. The Whirlpool Galaxy is a type Sb on Hubble's Tuning Fork. 
+
+A general time table for our project is given in the table below:
+
 \begin{table}[!h]
   \caption{Project Schedule}
   \label{tab:plan}
@@ -184,9 +188,9 @@ For building the CNN, we will use the python module Keras with the Tensorflow ba
   \end{tabular}
 \end{table}
 
-After our final model has been trained, we will test its generalizability by using third party images of nearby galaxies and testing the classification results. Images taken from the Iowa Robotic Observatory could be one such third party source. In Figure \ref{fig:M51}, an unfiltered image of the Whirlpool Galaxy taken by the University of Iowa's Gemini telescope is shown. The Whirpool Galaxy is a type Sb on Hubble's Tuning Fork.
 
 Preprocessing could be a valuable tool for improving the results, although the limited time requirements may prevent us from exploring this option in depth. We'll likely crop the images to reduce computation time, and if needbe we could apply some affine transformations to increase the size of our dataset. An intricate method, similar to the one utilized by \cite{2015MNRAS.450.1441D}, could be a future implementation.
+
 
 When it comes to the overall accuracy, we hope to achieve performances at least comparable to previous studies when it comes to getting the most basic morphological shapes such as spirals vs ellipiticals $(\sim 95\%)$. With regard to subclassifications, which are somewhat subjective, we anticipate getting large errors, but hope to achieve accuracies that are significantly greater than random guessing. Ideally, our model should also give fairly similar Hubble types among the most likely categories (e.g., having E5 and E6 as the two top predictions, rather than E0 and E7).
 
