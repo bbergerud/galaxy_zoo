@@ -211,31 +211,53 @@ Based on prior work, the best approach to galaxy classification appears to be a 
 Since many of the images used in Galaxy Zoo 2 had poor consensus among the citizen scientists, we will attempt to achieve better results by incorporating the results from Galazy Zoo 1, Galazy Zoo: Hubble, and Galaxy Zoo: CANDELS, and pruning the dataset. Galaxy Zoo 1, which is the largest of the datasets, will be mostly inadequate for classification purposes as it aimed at determining whether a galaxy was a spiral, elliptical, edge-on disk, or a merging system (irregular). It will, however, provide a good dataset for initial testing to verify that we can separate the basic mophologies. The three remaining Galaxy Zoo projects asked similar questions, allowing for similar mapping schemes to the Hubble tuning fork.
 
 
-\begin{figure}[h]
-  \centering
-	\includegraphics[width=100mm]{../img/M51.pdf}
-  \caption{Unfiltered image of the Whirlpool Galaxy (Sb), taken with the Iowa Robotic Observatory.}
-  \label{fig:M51}
-\end{figure}
-
 
 \section{Plan}
 Describe your plan for the project. What data you are going to use to evaluate your methods? What are the baselines that you want to compare? How will you develop your methods?   A timeline with important milestones is always perferred.
 
-There are two major bottlenecks to our task: completing the project within a month and computational resources. With regard to the former, our project can be broken several stages:
+%There are two major bottlenecks to our task: completing the project within a month and computational resources. With regard to the former, our project can be broken several stages:
+
+Our project can be broken into several stages:
 \begin{enumerate}
 \item	Map the Galaxy Zoo classication results to the Hubble types and prune the results
-\item	Build the CNN and test on the GZ1
+\item	Build the CNN and test on images from the GZ1 dataset
 \item	Begin training on the tuning fork dataset and fine-tune the parameters
 \item	Test the model on third-party images
 \end{enumerate}
 
-The mapping of the galaxy zoo classification results should be fairly straightforward. For building the CNN, we will make use of the python module Keras with a Tensorflow backend. 
+The mapping of the galaxy zoo classification results can be done fairly quickly, the only issue maybe the downloading time from the SDSS database. In addition, the size of the sample may prove to be an issue. With limited time we may be force to work with a smaller subset than would be desired. For the CNN, we will use the python module Keras with the Tensorflow backend. Since CNNs are computationally expensive, we will attempt to gain access to the GPUs on one of the Iowa clusters to reduce the computation time. Tensorflow is designed to make use of GPUs if present, thus requiring no additional programming on our part.
 
-CNNs and inherently computationally expensive and can take a long time to train, especially when using a large number of images. To cut down on computational time, we will attempt to gain access to one of the Iowa clusters. The tensorflow backend is designe to work to automatically integrate GPUs to speed up computation.
+\begin{table}[!h]
+  \caption{Project Schedule}
+  \label{tab:plan}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    %\multicolumn{2}{c}{Part}                   \\
+    \cmidrule{1-2}
+    Week     & Tasks \\
+    \midrule
+    03 April 	& GZ1 download; building CNN    \\
+    10 April    & Download full dataset; testing CNN on simpler scheme \\
+    17 April    & Tuning CNN on full tuning fork; begin writing report       \\
+	24 April	& Finish CNN work; prepare presentation; continue writing report  \\
+	01 May		& Presentation; finish report \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Preprocessing could be a valuable tool for improving the results, although the limited time requirements may prevent us from exploring this option in depth. We'll likely crop the images to reduce computation time, and if needbe we could apply some affine transformations to increase the size of our dataset. An intricate method, similar to the one utilized by \cite{2015MNRAS.450.1441D}, could be a future implementation.
+
+Baselines...
 
 
 
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=100mm]{../img/M51.pdf}
+  \caption{Unfiltered image of the Whirlpool Galaxy (Sb). Taken with the Iowa Robotic Observatory.}
+  \label{fig:M51}
+\end{figure}
 
 \subsubsection*{Acknowledgments}
 
