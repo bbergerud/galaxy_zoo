@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2016/dev) (preloaded format=pdflatex 2017.3.15)  31 MAR 2017 16:51
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2016/dev) (preloaded format=pdflatex 2017.3.15)  31 MAR 2017 18:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -496,7 +496,7 @@ Class revtex4-1 Warning: Assuming \noaffiliation for authors.
 
 Missing character: There is no ¬ in font cmr10!
 Missing character: There is no † in font cmr10!
-<img/GZ2_tree.png, id=4, 1164.35pt x 878.28125pt>
+<img/GZ2_tree.png, id=11, 1164.35pt x 878.28125pt>
 File: img/GZ2_tree.png Graphic file (type png)
  <use img/GZ2_tree.png>
 Package pdftex.def Info: img/GZ2_tree.png used on input line 31.
@@ -509,7 +509,7 @@ Missing character: There is no Ä in font cmr10!
 Missing character: There is no ù in font cmr10!
 
 [1{/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map} <./img/GZ2
-_tree.png>] <img/tuningFork.pdf, id=27, 722.7pt x 1011.78pt>
+_tree.png>] <img/tuningFork.pdf, id=39, 722.7pt x 1011.78pt>
 File: img/tuningFork.pdf Graphic file (type pdf)
 
 <use img/tuningFork.pdf>
@@ -525,44 +525,31 @@ Underfull \hbox (badness 10000) in paragraph at lines 40--40
 \OT1/cmr/m/n/10 http://ay17-chusic.blogspot.com/2015/10/20-hubble-
  []
 
-<img/GZ2_network.png, id=38, 1133.23375pt x 855.195pt>
+<img/GZ2_network.png, id=50, 1133.23375pt x 855.195pt>
 File: img/GZ2_network.png Graphic file (type png)
 
 <use img/GZ2_network.png>
-Package pdftex.def Info: img/GZ2_network.png used on input line 57.
+Package pdftex.def Info: img/GZ2_network.png used on input line 59.
 (pdftex.def)             Requested size: 436.15294pt x 329.14018pt.
  [2 <./img/tuningFork.pdf>] [3 <./img/GZ2_network.png>] <img/inception.png, id=
-73, 1246.6575pt x 646.415pt>
+87, 1246.6575pt x 646.415pt>
 File: img/inception.png Graphic file (type png)
  <use img/inception.png>
-Package pdftex.def Info: img/inception.png used on input line 79.
+Package pdftex.def Info: img/inception.png used on input line 81.
 (pdftex.def)             Requested size: 208.47804pt x 108.09393pt.
 
-<img/M51.pdf, id=78, 530.0352pt x 527.02396pt>
-File: img/M51.pdf Graphic file (type pdf)
- <use img/M51.pdf>
-Package pdftex.def Info: img/M51.pdf used on input line 91.
-(pdftex.def)             Requested size: 208.47804pt x 207.29161pt.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 96.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 96.
- (./proposal.bbl)
-[4 <./img/inception.png> <./img/M51.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 114.
+(./proposal.bbl) [4 <./img/inception.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 109.
  (./proposal.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 114.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 114.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 109.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 109.
  ) 
 Here is how much of TeX's memory you used:
- 8780 strings out of 493096
- 122076 string characters out of 6137361
- 271434 words of memory out of 5000000
- 12151 multiletter control sequences out of 15000+600000
- 11731 words of font info for 47 fonts, out of 8000000 for 9000
+ 8781 strings out of 493096
+ 122192 string characters out of 6137361
+ 280847 words of memory out of 5000000
+ 12149 multiletter control sequences out of 15000+600000
+ 12083 words of font info for 48 fonts, out of 8000000 for 9000
  1137 hyphenation exceptions out of 8191
  36i,6n,37p,949b,329s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr
@@ -574,11 +561,12 @@ fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmti10.pfb>
-Output written on proposal.pdf (4 pages, 1158039 bytes).
+/cmti10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8
+.pfb>
+Output written on proposal.pdf (4 pages, 980807 bytes).
 PDF statistics:
- 146 PDF objects out of 1000 (max. 8388607)
- 113 compressed objects within 2 object streams
- 21 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 168 PDF objects out of 1000 (max. 8388607)
+ 137 compressed objects within 2 object streams
+ 27 named destinations out of 1000 (max. 500000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
