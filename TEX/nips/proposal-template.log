@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2016.11.21)  31 MAR 2017 22:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016/Debian) (preloaded format=pdflatex 2016.11.21)  31 MAR 2017 22:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -756,41 +756,44 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: ../img/GZ2_network.png Graphic file (type png)
 
 <use ../img/GZ2_network.png>
-Package pdftex.def Info: ../img/GZ2_network.png used on input line 189.
+Package pdftex.def Info: ../img/GZ2_network.png used on input line 129.
 (pdftex.def)             Requested size: 369.88582pt x 279.13562pt.
  [4 <../img/GZ2_network.png>]
 <../img/inception.png, id=97, 1246.6575pt x 646.415pt>
 File: ../img/inception.png Graphic file (type png)
 
 <use ../img/inception.png>
-Package pdftex.def Info: ../img/inception.png used on input line 206.
+Package pdftex.def Info: ../img/inception.png used on input line 146.
 (pdftex.def)             Requested size: 284.52756pt x 147.52815pt.
- [5 <../img/inception.png>]
-<../img/M51.pdf, id=116, 530.0352pt x 527.02396pt>
-File: ../img/M51.pdf Graphic file (type pdf)
- <use ../img/M51.pdf>
-Package pdftex.def Info: ../img/M51.pdf used on input line 257.
-(pdftex.def)             Requested size: 284.52756pt x 282.90797pt.
 
-[6 <../img/M51.pdf>]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 281.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[5 <../img/inception.png>] <../img/M51.pdf, id=117, 530.0352pt x 527.02396pt>
+File: ../img/M51.pdf Graphic file (type pdf)
+
+<use ../img/M51.pdf>
+Package pdftex.def Info: ../img/M51.pdf used on input line 196.
+(pdftex.def)             Requested size: 284.52756pt x 282.90797pt.
+ [6 <../img/M51.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 220.
  [7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 281.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 220.
  (./proposal-template.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 281.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 281.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 220.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 220.
 Package rerunfilecheck Info: File `proposal-template.out' has not changed.
 (rerunfilecheck)             Checksum: A5DC1CB1EA6196CA9CABE4E7878C6511;185.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 281.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 220.
  ) 
 Here is how much of TeX's memory you used:
- 8239 strings out of 494946
- 123868 string characters out of 6181039
+ 8236 strings out of 494946
+ 123841 string characters out of 6181039
  240541 words of memory out of 5000000
  11254 multiletter control sequences out of 15000+600000
- 32054 words of font info for 122 fonts, out of 8000000 for 9000
+ 31924 words of font info for 120 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 31i,8n,38p,938b,409s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 31i,8n,38p,938b,411s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc} </home/bergerud/.
 texlive2016/texmf-var/fonts/pk/ljfour/jknappen/ec/ectt1000.600pk></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/
@@ -799,10 +802,10 @@ ist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fo
 nts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
 imes/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pf
 b>
-Output written on proposal-template.pdf (7 pages, 1109789 bytes).
+Output written on proposal-template.pdf (7 pages, 1110764 bytes).
 PDF statistics:
- 187 PDF objects out of 1000 (max. 8388607)
- 139 compressed objects within 2 object streams
+ 188 PDF objects out of 1000 (max. 8388607)
+ 140 compressed objects within 2 object streams
  34 named destinations out of 1000 (max. 500000)
  18490 words of extra memory for PDF output out of 20736 (max. 10000000)
 

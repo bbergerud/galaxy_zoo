@@ -124,66 +124,6 @@ Due to the limited sample size, the number of images was increased by performing
 Overall, the model did quite well, achieving $\sim 99\%$ accuracy. It stuggled most with the larger angular sized galaxies (more nearby), as well as those that were not radially symmetric.
 
 
-
-
-\iffalse
-
-\subsection{Figures}
-
-All artwork must be neat, clean, and legible. Lines should be dark
-enough for purposes of reproduction. The figure number and caption
-always appear after the figure. Place one line space before the figure
-caption and one line space after the figure. The figure caption should
-be lower case (except for first word and proper nouns); figures are
-numbered consecutively.
-
-You may use color figures.  However, it is best for the figure
-captions and the paper body to be legible if the paper is printed in
-either black/white or in color.
-\begin{figure}[h]
-  \centering
-  \fbox{\rule[-.5cm]{0cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
-  \caption{Sample figure caption.}
-\end{figure}
-
-\subsection{Tables}
-
-All tables must be centered, neat, clean and legible.  The table
-number and title always appear before the table.  See
-Table~\ref{sample-table}.
-
-Place one line space before the table title, one line space after the
-table title, and one line space after the table. The table title must
-be lower case (except for first word and proper nouns); tables are
-numbered consecutively.
-
-Note that publication-quality tables \emph{do not contain vertical
-  rules.} We strongly suggest the use of the \verb+booktabs+ package,
-which allows for typesetting high-quality, professional tables:
-\begin{center}
-  \url{https://www.ctan.org/pkg/booktabs}
-\end{center}
-This package was used to typeset Table~\ref{sample-table}.
-
-
-\begin{table}[t]
-  \caption{Sample table title}
-  \label{sample-table}
-  \centering
-  \begin{tabular}{lll}
-    \toprule
-    \multicolumn{2}{c}{Part}                   \\
-    \cmidrule{1-2}
-    Name     & Description     & Size ($\mu$m) \\
-    \midrule
-    Dendrite & Input terminal  & $\sim$100     \\
-    Axon     & Output terminal & $\sim$10      \\
-    Soma     & Cell body       & up to $10^6$  \\
-    \bottomrule
-  \end{tabular}
-\end{table}
-\fi
-
 \begin{figure}[h]
   \centering
 	\includegraphics[width=130mm]{../img/GZ2_network.png}
@@ -213,19 +153,17 @@ Since many of the images used in Galaxy Zoo 2 had poor consensus among the citiz
 
 
 \section{Plan}
-Describe your plan for the project. What data you are going to use to evaluate your methods? What are the baselines that you want to compare? How will you develop your methods?   A timeline with important milestones is always perferred.
-
-%There are two major bottlenecks to our task: completing the project within a month and computational resources. With regard to the former, our project can be broken several stages:
-
 Our project can be broken into several stages:
 \begin{enumerate}
 \item	Map the Galaxy Zoo classication results to the Hubble types and prune the results
 \item	Build the CNN and test on images from the GZ1 dataset
-\item	Begin training on the tuning fork dataset and fine-tune the parameters
+\item	Begin training on the tuning fork dataset and fine-tune the model architecture
 \item	Test the model on third-party images
 \end{enumerate}
 
-The mapping of the galaxy zoo classification results can be done fairly quickly, the only issue maybe the downloading time from the SDSS database. In addition, the size of the sample may prove to be an issue. With limited time we may be force to work with a smaller subset than would be desired. For the CNN, we will use the python module Keras with the Tensorflow backend. Since CNNs are computationally expensive, we will attempt to gain access to the GPUs on one of the Iowa clusters to reduce the computation time. Tensorflow is designed to make use of GPUs if present, thus requiring no additional programming on our part.
+The mapping of the galaxy zoo classification results can be done fairly quickly, the only issue maybe the downloading time from the SDSS database. In addition, the size of the sample may prove to be an issue. With limited time we may be force to work with a smaller subset than would be desired. 
+
+For building the CNN, we will use the python module Keras with the Tensorflow backend. Since CNNs are computationally expensive, we will attempt to gain access to the GPUs on one (or both) of the Iowa clusters to reduce the computation time. Tensorflow is designed to make use of GPUs if present, thus requiring no additional programming on our part.
 
 \begin{table}[!h]
   \caption{Project Schedule}
@@ -246,10 +184,11 @@ The mapping of the galaxy zoo classification results can be done fairly quickly,
   \end{tabular}
 \end{table}
 
+After our final model has been trained, we will test its generalizability by using third party images of nearby galaxies and testing the classification results. Images taken from the Iowa Robotic Observatory could be one such third party source. In Figure \ref{fig:M51}, an unfiltered image of the Whirlpool Galaxy taken by the University of Iowa's Gemini telescope is shown. The Whirpool Galaxy is a type Sb on Hubble's Tuning Fork.
+
 Preprocessing could be a valuable tool for improving the results, although the limited time requirements may prevent us from exploring this option in depth. We'll likely crop the images to reduce computation time, and if needbe we could apply some affine transformations to increase the size of our dataset. An intricate method, similar to the one utilized by \cite{2015MNRAS.450.1441D}, could be a future implementation.
 
-Baselines...
-
+When it comes to the overall accuracy, we hope to achieve performances at least comparable to previous studies when it comes to getting the most basic morphological shapes such as spirals vs ellipiticals $(\sim 95\%)$. With regard to subclassifications, which are somewhat subjective, we anticipate getting large errors, but hope to achieve accuracies that are significantly greater than random guessing. Ideally, our model should also give fairly similar Hubble types among the most likely categories (e.g., having E5 and E6 as the two top predictions, rather than E0 and E7).
 
 
 \begin{figure}[h]
