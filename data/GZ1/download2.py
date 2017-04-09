@@ -1,21 +1,22 @@
 import pandas as pd
 import numpy as np
-import urllib.parse
-import urllib.request
+import urllib
 from astropy import units as u
 from astropy.coordinates import SkyCoord
 
 
-def download(type, space=100):
+def download(type, nPetro=3, impix=207):
 	"""
 	Function for downloading the GZ1 dataset associated
 	with the "type" csv file.
 
 	To call:
-		download(type)
+		download(type, nPetro)
 
 	Parameters:
 		type		"E", "Edge-on", or "S"
+		nPetro		number of Pertrosian radii
+		impix		image size (impix X impix)
 
 	Postcondtion:
 		The files are stored in the folder specified
@@ -30,22 +31,22 @@ def download(type, space=100):
 	# ==================================================
 	#	Convert the coordinates to decimal
 	# ==================================================
-	coord = [a + " " + b for a, b in zip(df["RA"], df["DEC"])]
+	coord = [a + " " + b for a, b in zip(df["ra"], df["dec"])]
 	coord = SkyCoord(coord, unit=(u.hour, u.deg), frame='icrs')
 
 	# ==================================================
 	#	Set the image properties and retrieve the url
+	#	Set the total number of arcseconds equal to
+	#	2x the desired petrosian radius (diameter)
 	# ==================================================
-	impix = 207
-	scale = 0.5
+	narc = 2. * nPetro * df["petroRad_g"].values
+	scales = narc / impix
+
 	cutoutbaseurl = 'http://skyservice.pha.jhu.edu/DR12/ImgCutout/getjpeg.aspx'
 
-	N = df["OBJID"].size
-	for i, (ra, dec, objid) in enumerate(zip(coord.ra.deg, coord.dec.deg, df["OBJID"].astype(str))):
-		if i % space == 0:
-			print("Iter #{:d} / {:d}".format(i, N))
-
-		query_string = urllib.parse.urlencode(dict(ra=ra, 
+	for ra, dec, objid, scale in zip(coord.ra.deg, coord.dec.deg, df["objid"].astype(str), scales):
+		
+		query_string = urllib.urlencode(dict(ra=ra, 
 							dec=dec, 
 							width=impix, 
 							height=impix, 
@@ -56,4 +57,4 @@ def download(type, space=100):
 		# ==================================================
 		#	Download the image
 		# ==================================================	
-		urllib.request.urlretrieve(url, type + "/" + objid + ".jpg")
+		urllib.urlretrieve(url, type + "/" + objid + ".jpg")
