@@ -22,13 +22,13 @@ class data:
 	def __init__(self, *args, **kwargs):
 		pass
 
-	def _createDataArray(self, datafolder, output):
+	def _createDataArray(self, datafolder, output, train=True, valid=True, test=True):
 		'''
 		Function for creating the train, valid, and test
 		arrays.
 
 		To call:
-			_createDataArray(datafolder, output)
+			_createDataArray(datafolder, output, train, valid, test)
 
 		Parameters:
 			datafolder		folder that contains the image
@@ -67,10 +67,19 @@ class data:
 			# =====================================================
 			partition, label = folder.split('/')[-2:]
 
+			if (partition == 'train') and not train:
+				continue
+			if (partition == 'valid') and not valid:
+				continue
+			if (partition == 'test') and not test:
+				continue
+
+			print("{:s}\t{:s}".format(partition, label))
+
 			# =====================================================
 			# Retrieve all the images in the folder and open
 			# =====================================================
-			files = glob.glob(folder)
+			files = glob.glob(folder + '/*jpg')
 
 			imgs = []
 			for fn in files:
@@ -88,23 +97,23 @@ class data:
 			if partition.lower() == 'valid':
 				try:
 					X_valid = np.concatenate((X_valid, imgs), axis=0)
-				except
+				except:
 					X_valid = imgs
 
 				y_valid.extend(nimg * [label])
 
 			elif partition.lower() == 'test':
 				try:
-					X_test = concatenate((X_test, imgs), axis=0)
-				except
+					X_test = np.concatenate((X_test, imgs), axis=0)
+				except:
 					X_test = imgs
 
 				y_test.extend(nimg * [label])
 
 			else:
 				try:
-					X_train.concatenate((X_train, imgs), axis=0)
-				except
+					X_train = np.concatenate((X_train, imgs), axis=0)
+				except:
 					X_train = imgs
 
 				y_train.extend(nimg * [label])
@@ -179,9 +188,6 @@ class data:
 
 		except:
 			print("No testing dataset / Failure to save")
-
-
-
 
 
 
@@ -261,3 +267,10 @@ class data:
 			except:
 				print("Failed to delete test")
 
+
+
+if __name__ == '__main__':
+
+	hubble = data()
+	hubble._createDataArray('../img/GZ1/', '../img/GZ1/')
+	hubble._loadDataArray('../img/GZ1/')
