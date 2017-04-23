@@ -24,54 +24,57 @@ def download(type, nPetro=1.75, impix=299, nprint=500):
 		by type as a jpeg image. The filenames are 
 		the SDDS OBJID number.
 	"""
-	# ==================================================
-	#	Open the csv file
-	# ==================================================
-	df = pd.read_csv('csv2/' + type + ".csv")
 
-	# ==================================================
-	#	Test to see if the directories for placing
-	#	the images exist. If not, create directory
-	# ==================================================
-	groups = set(df['group'])
-	for group in groups:
-		dir = 'data/' + group + '/' + type
-		if not os.path.exists(dir):
-			os.makedirs(dir)
-
-	# ==================================================
-	#	Set the image properties and retrieve the url
-	#	Set the total number of arcseconds equal to
-	#	2x the desired petrosian radius (diameter)
-	# ==================================================
-	narc = 2. * nPetro * df["petroR90_g"].values
-	scales = narc / impix
-
-	cutoutbaseurl = 'http://skyservice.pha.jhu.edu/DR12/ImgCutout/getjpeg.aspx'
-
-
-	N = df.shape[0]
-	for i, (ra, dec, objid, group, scale) in enumerate(zip(df['ra'], df['dec'], df["objid"].astype(str), df["group"], scales)):
+	for folder in ['csv2', 'csvE']:
 
 		# ==================================================
-		#	Print the progress
+		#	Open the csv file
 		# ==================================================
-		if i % nprint == 0:
-			print("Iter #{:d} / {:d}".format(i, N))
+		df = pd.read_csv(folder + '/' + type + ".csv")
+
+		# ==================================================
+		#	Test to see if the directories for placing
+		#	the images exist. If not, create directory
+		# ==================================================
+		groups = set(df['group'])
+		for group in groups:
+			dir = 'data/' + group + '/' + type
+			if not os.path.exists(dir):
+				os.makedirs(dir)
+
+		# ==================================================
+		#	Set the image properties and retrieve the url
+		#	Set the total number of arcseconds equal to
+		#	2x the desired petrosian radius (diameter)
+		# ==================================================
+		narc = 2. * nPetro * df["petroR90_g"].values
+		scales = narc / impix
+
+		cutoutbaseurl = 'http://skyservice.pha.jhu.edu/DR12/ImgCutout/getjpeg.aspx'
+
+
+		N = df.shape[0]
+		for i, (ra, dec, objid, group, scale) in enumerate(zip(df['ra'], df['dec'], df["objid"].astype(str), df["group"], scales)):
+
+			# ==================================================
+			#	Print the progress
+			# ==================================================
+			if i % nprint == 0:
+				print("Iter #{:d} / {:d}".format(i, N))
 		
 
-		# ==================================================
-		#	Create the query string
-		# ==================================================
-		query_string = urllib.parse.urlencode(dict(ra=ra, 
-							dec=dec, 
-							width=impix, 
-							height=impix, 
-							scale=scale))
+			# ==================================================
+			#	Create the query string
+			# ==================================================
+			query_string = urllib.parse.urlencode(dict(ra=ra, 
+								dec=dec, 
+								width=impix, 
+								height=impix, 
+								scale=scale))
 
-		url = cutoutbaseurl + '?' + query_string
+			url = cutoutbaseurl + '?' + query_string
 
-		# ==================================================
-		#	Download the image
-		# ==================================================
-		urllib.request.urlretrieve(url, "data/" + group + "/" + type + "/" + objid + ".jpg")
+			# ==================================================
+			#	Download the image
+			# ==================================================
+			urllib.request.urlretrieve(url, "data/" + group + "/" + type + "/" + objid + ".jpg")
