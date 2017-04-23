@@ -29,7 +29,6 @@ def download(type, nPetro=1.75, impix=299):
 		#	Open the csv file
 		# ==================================================
 		df = pd.read_csv(folder + '/' + type + ".csv")
-		df = df.loc[:10]
 
 		# ==================================================
 		#	Test to see if the directories for placing
