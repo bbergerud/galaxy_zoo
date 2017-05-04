@@ -37,9 +37,9 @@ class hubble:
 			The class weights have been stored in the
 			variable imgWeights (if applicable).
 		"""
-		# =======================================
+		# =====================================================================
 		# Set the train and valid directories
-		# =======================================
+		# =====================================================================
 		if target[-1] == '/':
 			trainDir = target + 'train/'
 			validDir = target + 'valid/'
@@ -48,9 +48,9 @@ class hubble:
 			validDir = target + '/valid/'
 
 
-		# =======================================
-		# Create the image generator
-		# =======================================
+		# =====================================================================
+		# Create the image generators
+		# =====================================================================
 		datagen = ImageDataGenerator()
 
 		self.imgTrain = datagen.flow_from_directory(
@@ -63,16 +63,16 @@ class hubble:
 			batch_size = self.__batchSize,
 			class_mode = 'categorical')
 
-		# =======================================
+		# =====================================================================
 		# Count the number of images
-		# =======================================
+		# =====================================================================
 		trainCounts = len(glob.glob(trainDir + '*/*jpg'))
 		validCounts = len(glob.glob(validDir + '*/*jpg'))
 		self.imgCounts = {'train': trainCounts, 'valid': validCounts}
 
-		# =======================================
+		# =====================================================================
 		# Assign the class weights
-		# =======================================
+		# =====================================================================
 		classes = [i.split('/')[-1] for i in glob.glob(trainDir + '*')]
 		self.__classes = classes
 
@@ -84,10 +84,10 @@ class hubble:
 		else:
 			self.imgWeights = None	
 
-		# =======================================
+		# =====================================================================
 		# Get the image size and determine
 		# the channel location
-		# =======================================
+		# =====================================================================
 		#try:
 		#	self.__inputShape
 		#except:
@@ -118,7 +118,7 @@ class hubble:
 			sys.exit(1)
 
 
-	def _createModel(self, neurons=1024, outs=None, act='elu', opt='rmsprop', drop=0.5, freeze=True):
+	def _createModel(self, neurons=1024, outs=None, act='elu', opt='rmsprop', drop=0.5, freeze=True, hidden=1):
 		"""
 		Function for adjusting the InceptionV3 model to have "outs" outputs.
 		If _setTrain has been run, then leave "outs=None".
@@ -133,6 +133,7 @@ class hubble:
 			opt			optimizer
 			drop		dropout rate
 			freeze		freeze the IV3 base layers
+			hidden		number of hidden Dense/Drop layers to add
 		"""
 		if outs == None:
 			try:
@@ -149,17 +150,25 @@ class hubble:
 		# =====================================================================
 		# Add new layers for model training
 		# =====================================================================
-		pool_layer = GlobalAveragePooling2d()(base_layer.output)
-		dens_layer = Dense(neurons, activation=act)(pool_layer)
-		drop_layer = Drop(drop)(dens_layer)
-		dens_layer = Dense(neurons, activation=act)(pool_layer)
-		drop_layer = Drop(drop)(dens_layer)
-		pred_layer = Dense(outs, activation='softmax')(drop_layer)
+		mlayer = [] 
+		mlayer.append( GlobalAveragePooling2d()(base_layer.output) )
+
+		for _ in range(hidden):
+			mlayer.append( Dense(neurons, activation=act)(mlayer[-1]) )
+			mlayer.append( Drop(drop)(mlayer[-1]) )
+
+		mlayer.append( Dense(outs, activation='softmax')(mlayer[-1]) )
+
+		#pool_layer = GlobalAveragePooling2d()(base_layer.output)
+		#dens_layer = Dense(neurons, activation=act)(pool_layer)
+		#drop_layer = Drop(drop)(dens_layer)
+		#pred_layer = Dense(outs, activation='softmax')(drop_layer)
+		# model = Model(input=base_layer.input, output=pred_layer)
 
 		# =====================================================================
 		# Create the new model
 		# =====================================================================
-		model = Model(input=base_layer.input, output=pred_layer)
+		model = Model(input=base_layer.input, output=mlayer[-1])
 
 		# =====================================================================
 		# Freeze the original weights ?
