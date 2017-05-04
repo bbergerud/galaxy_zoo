@@ -79,7 +79,7 @@ class hubble:
 		if class_weight:
 			self.imgWeights = {}
 			for label in classes:
-				labelCounts = len(glob.glob(trainDir + '*/*jpg'))
+				labelCounts = len(glob.glob(trainDir + label + '/*jpg'))
 				self.imgWeights[label] = self.imgCounts['train'] / float(labelCounts)
 		else:
 			self.imgWeights = None	
