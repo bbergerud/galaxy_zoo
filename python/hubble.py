@@ -4,9 +4,9 @@ import numpy as np
 
 from keras.applications.inception_v3 import InceptionV3
 from keras.preprocessing.image import ImageDataGenerator
-from keras.layers import Dense, Dropout
-from keras.models import load_model
-from keras.callbacks import ModelCheckpoint, CSVLogger
+from keras.layers import Dense, Dropout, GlobalAveragePooling2D
+from keras.models import load_model, Model
+from keras.callbacks import CSVLogger, EarlyStopping, ModelCheckpoint
 
 class hubble:
 	
@@ -16,8 +16,7 @@ class hubble:
 
 	def _setTrain(self, target, class_weight=False):
 		"""
-		Function for preparing the training and
-		validation testsets.
+		Function for preparing the training and validation datasets.
 
 		To call:
 			_setTrain(target, weights=False)
@@ -51,17 +50,22 @@ class hubble:
 		# =====================================================================
 		# Create the image generators
 		# =====================================================================
-		datagen = ImageDataGenerator()
+		datagen = ImageDataGenerator(
+			horizontal_flip = True, 
+			vertical_flip = True
+		)
 
 		self.imgTrain = datagen.flow_from_directory(
 			directory = trainDir,
 			batch_size = self.__batchSize,
-			class_mode = 'categorical')
+			class_mode = 'categorical'	
+		)
 
 		self.imgValid = datagen.flow_from_directory(
 			directory = validDir,
 			batch_size = self.__batchSize,
-			class_mode = 'categorical')
+			class_mode = 'categorical'
+		)
 
 		# =====================================================================
 		# Count the number of images
@@ -97,6 +101,54 @@ class hubble:
 
 
 
+	def _setTest(self, target):
+		"""
+		Function for preparing the testing dataset.
+
+		To call:
+			_setTrain(target)
+
+		Parameters:
+			target			target directory
+
+		Postcondition:
+			The ImageDataGenerator has been stored
+			in the variable imgTest.
+
+			The image counts for the testing set
+			have been stored in the dictionary imgCounts.
+		"""
+		# =====================================================================
+		# Set the train and valid directories
+		# =====================================================================
+		if target[-1] == '/':
+			testDir = target + 'test/'
+		else:
+			testDir = target + '/test/'
+
+
+		# =====================================================================
+		# Create the image generators
+		# =====================================================================
+		datagen = ImageDataGenerator(horizontal_flip = True, vertical_flip = True)
+
+		self.imgTest = datagen.flow_from_directory(
+			directory = testDir,
+			batch_size = self.__batchSize,
+			class_mode = 'categorical'	
+		)
+
+		# =====================================================================
+		# Count the number of images
+		# =====================================================================
+		testCounts = len(glob.glob(testDir + '*/*jpg'))
+
+		try:
+			self.imgCounts['test'] = testCounts
+		except:
+			self.imgCounts = {'test': testCounts}
+
+
 	def _loadModel(self, modelfile):
 		self.model = load_model(modelfile)
 
@@ -118,13 +170,13 @@ class hubble:
 			sys.exit(1)
 
 
-	def _createModel(self, neurons=1024, outs=None, act='elu', opt='rmsprop', drop=0.5, freeze=True, hidden=1):
+	def _createIV3(self, neurons=1024, outs=None, act='elu', opt='rmsprop', drop=0.5, freeze=True, hidden=1):
 		"""
 		Function for adjusting the InceptionV3 model to have "outs" outputs.
-		If _setTrain has been run, then leave "outs=None".
+		If _setTrain has been executed, then leave "outs=None".
 
 		To call:
-			_createModel(neurons, outs, act, opt, drop, freeze)
+			_createIV3(neurons, outs, act, opt, drop, freeze, hidden)
 
 		Parameters:
 			neurons		number of neurons in dense layer
@@ -151,11 +203,11 @@ class hubble:
 		# Add new layers for model training
 		# =====================================================================
 		mlayer = [] 
-		mlayer.append( GlobalAveragePooling2d()(base_layer.output) )
+		mlayer.append( GlobalAveragePooling2D()(base_layer.output) )
 
 		for _ in range(hidden):
 			mlayer.append( Dense(neurons, activation=act)(mlayer[-1]) )
-			mlayer.append( Drop(drop)(mlayer[-1]) )
+			mlayer.append( Dropout(drop)(mlayer[-1]) )
 
 		mlayer.append( Dense(outs, activation='softmax')(mlayer[-1]) )
 
@@ -163,12 +215,12 @@ class hubble:
 		#dens_layer = Dense(neurons, activation=act)(pool_layer)
 		#drop_layer = Drop(drop)(dens_layer)
 		#pred_layer = Dense(outs, activation='softmax')(drop_layer)
-		# model = Model(input=base_layer.input, output=pred_layer)
+		#model = Model(input=base_layer.input, output=pred_layer)
 
 		# =====================================================================
 		# Create the new model
 		# =====================================================================
-		model = Model(input=base_layer.input, output=mlayer[-1])
+		model = Model(inputs=base_layer.input, outputs=mlayer[-1])
 
 		# =====================================================================
 		# Freeze the original weights ?
@@ -185,15 +237,16 @@ class hubble:
 		self.model = model
 
 
-	def _trainModel(self, epochs=100, logfile='train.log', savefile='weights.h5', save_weights_only=True, period=1):
+	def _trainModel(self, epochs=100, patience=20, logfile='train.log', savefile='weights.h5', save_weights_only=True, period=1):
 		"""
 		Function for training a model.
 
 		To call:
-			_trainModel(epochs, logfile, savefile, save_weights_only, period)
+			_trainModel(epochs, patience, logfile, savefile, save_weights_only, period)
 
 		Parameters:
 			epochs				number of iterations
+			patience			patience for monitoring val_loss decrease
 			logfile				file to save log-data to
 			savefile			name of file to save weights/model
 			save_weights_only	save only weights (or model)
@@ -223,7 +276,8 @@ class hubble:
 		# =====================================================================
 		# Create callbacks for saving the best weights/model and log file
 		# =====================================================================
-		logger = CSVLogger(log)
+		logger = CSVLogger(logfile)
+		early  = EarlyStopping(monitor='val_loss', min_delta=0.0001, patience=patience, verbose=0, mode='auto')
 		weight = ModelCheckpoint(savefile, monitor='val_loss', verbose=1, save_best_only=True, 
 						save_weights_only=save_weights_only, mode='auto', period=period)
 
@@ -236,12 +290,12 @@ class hubble:
 			epochs = epochs,
 			validation_data = self.imgValid,
 			validation_steps = self.imgCounts['valid'] // self.__batchSize,
-			callbacks = [logger, weight]
+			callbacks = [logger, weight, early]
 		)
 
 if __name__ == '__main__':
 
 	cnn = hubble()
 	cnn._setTrain(target='../img/GZ1/', class_weight=True)
-	cnn._createModel()
+	cnn._createIV3()
 	cnn._trainModel(epochs=1)
