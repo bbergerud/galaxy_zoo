@@ -22,7 +22,7 @@
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}
 
-\title{Hubble's Tuning Fork: \\A Machine Learning Approach}
+\title{Hubble's Tuning Fork: \\A Deep Learning Approach}
 
 % The \author macro works with any number of authors. There are two
 % commands used to separate the names and addresses of multiple
@@ -70,7 +70,7 @@
 \maketitle
 
 \begin{abstract}
-With the introduction of powerful telescopes such as the Hubble Space Telescope, vast quantities of high-fidelity imagery of remote galaxies have become available. Manual analysis of these images by experts has become infeasible, spawning citizen science projects such as Galaxy Zoo. However, the next generation of telescopes are expected to generate enormous volumes of data, going far beyond the capacity even of crowdsourced volunteers. In this study, we extend the work done on automatic galaxy image classification in the Galaxy Zoo 2 Kaggle challenge by training a convolutional neural network based on the Google Inception architecture, utilizing transfer learning from the popular ImageNet database. After re-training the final layers and fine-tuning the weights, the model was evaluated on the Galaxy Zoo 2 dataset and on expert-annotated datasets from the Sloan Digital Sky Survey. \ldots
+With the introduction of powerful telescopes such as the Hubble Space Telescope, vast quantities of high-fidelity imagery of remote galaxies have become available. Manual analysis of these images by experts has become infeasible, spawning citizen science projects such as Galaxy Zoo. However, the next generation of telescopes are expected to generate enormous volumes of data, going far beyond the capacity even of crowdsourced volunteers. In this study, we extend the work done on automatic galaxy image classification in the Galaxy Zoo 2 Kaggle challenge by training a convolutional neural network based on the Google Inception architecture, utilizing transfer learning from the popular ImageNet dataset. After re-training the final layers and fine-tuning the weights, the model was evaluated on the Galaxy Zoo 1 and 2 datasets, as well as an expert-annotated dataset, using images from the Sloan Digital Sky Survey. \ldots
 \end{abstract}
 
 \section{Introduction}
@@ -133,8 +133,10 @@ Overall, the model did quite well, achieving $\sim 99\%$ accuracy. It stuggled m
 
 
 
-
-
+% =========================================================
+% Proposed Work [old]
+% =========================================================
+\iffalse
 
 \section{The Proposed Work}
 As dicussed earlier, the existing systems from the Galaxy Zoo Kaggle challenge do an excellent job of replicating the voting patterns of citizen science volunteers on the Galaxy Zoo 2 dataset. However, it would be useful to develop an automated system based on the large annotated Galaxy Zoo datasets to classify new imagery from other sources using the popular Hubble Tuning Fork scheme. While this can be done to some extent using the kaggle models, it requires cross-correlating expertly annoted images to find the optimal probability cutoffs to transform the probability distributions to Hubble T-types, adding an additional layer of complexity that the machine wasn't required to learn. We will develop a mapping between the two classification schemes and develop such a machine learning system to directly classify images. 
@@ -143,6 +145,8 @@ Our model will differ slightly from the format of the Kaggle challenge. The Kagg
 
 Based on prior work, the best approach to galaxy classification appears to be a Deep Convolutional Neural Network. The top image recognition CNNs in recent years have used the inception model \citep{2014arXiv1409.4842S} as a building block in their networks (Figure \ref{fig:inception}). We will follow this trend.
 
+\fi
+
 \begin{figure}[h]
   \centering
 	\includegraphics[width=100mm]{../img/inception.png}
@@ -150,9 +154,18 @@ Based on prior work, the best approach to galaxy classification appears to be a 
   \label{fig:inception}
 \end{figure}
 
-\emph{
-Since many of the images used in Galaxy Zoo 2 had poor consensus among the citizen scientists, we will attempt to achieve better results by incorporating the results from Galazy Zoo 1, Galazy Zoo: Hubble, and Galaxy Zoo: CANDELS, and pruning the dataset. Galaxy Zoo 1, which is the largest of the datasets, will be mostly inadequate for classification purposes as it aimed at determining whether a galaxy was a spiral, elliptical, edge-on disk, or a merging system (irregular). It will, however, provide a good dataset for initial testing to verify that we can separate the basic mophologies. The three remaining Galaxy Zoo projects asked similar questions, allowing for similar mapping schemes to the Hubble tuning fork.
-}
+\section{Approach}
+The existing systems from the Galaxy Zoo 2 Kaggle challenge do an excellent job of replicating the voting patterns of citizen science volunteers on the Galaxy Zoo 2 dataset. Extending this one step further, we developed an automated system trained on the large annotated Galaxy Zoo datasets to classify galaxies directly onto the popular Hubble Tuning Fork scheme. While this can be done to some extent using the kaggle models, it requires cross-correlating expertly annoted images to find the optimal probability cutoffs to transform the probability distributions to Hubble types, adding an additional layer of complexity that the machine wasn’t required to learn.
+
+Our model differs slightly from the format of the Kaggle challenge. The Kaggle Galaxy Zoo challenge formulated the problem as a regression on the class probabilities, defined as the ratio of citizen science volunteers that gave a given galaxy a certain classification. To match the structure of our gold standard Tuning Fork scheme data, we instead treated this as a classification problem and selected only those galaxies whose vote fractions are within our chosen threshold for each Hubble type. This favors the more nearby galaxies, whose properties the top performing model in the Kaggle competition had a harder time predicting accurately. The system might also serve as a more interactive tool that could serve as a complement to the galaxy classification lab in Stars, Galaxies, and the Universe.
+
+Based on prior work, the best approach to galaxy classification appears to be a Deep Convolutional Neural Network. The top image recognition CNNs in recent years have used the inception model \citep{2014arXiv1409.4842S} as a building block in their networks (Figure \ref{fig:inception}). We will follow this trend.
+
+As an initial test, we began with a simple classification system of Ellipticals, Spirals, and Edge-on Spirals using the Galaxy Zoo 1 dataset. Since this dataset contains results for almost 1 million galaxies, we only looked at those that contained only measured redshifts $(\sim 67\%)$, and from those pruned the dataset. Requiring 100\% agreement on Elliptical and Spiral classifications, and $>95\%$ on Edge-on Spirals, we had approximately 4000 galaxies in each category. From these 11845 galaxies, 2200 from each category were sent to a training dataset, 800 to the validation, and the remaining to the testing dataset.
+
+
+[Downloading scheme]
+
 
 \section{Implementation}
 Our galaxy classification model was built on top of Google’s Tensorflow and the open-source deep learning library Keras. Keras has achieved popularity through ease of use and a wide selection of pre-built models. We use the Keras implementation of Google’s Inception V3 architecture, initialized with weights from ImageNet pre-training. Training an Inception model from scratch is computationally intensive. By re-using the ImageNet weights provided by Google, we were able to considerably reduce training time. 
@@ -166,6 +179,30 @@ Four different models were trained on four different datasets.  One model was tr
 The three remaining models were trained on the Galaxy Zoo 2 dataset (GZ2), the independent expert-labeled dataset (EXP), and a merged Galaxy Zoo 2 and expert-labeled dataset (GS2-EXP). The model build on GZ2 was tested on GZ2 and EXP, the model built on EXP was tested on EXP and the model built on GZ2-EXP was tested on GZ2-EXP and EXP. This allows us to assess the generalization performance of a classifier trained on the Galaxy Zoo 2 dataset when applied to a new dataset, compared to training on the new dataset alone or training after merging the two datasets.
 
 \section{Results}
+The system provides excellent performance on GZ1 and is able to generate meaningful predictions on all datasets. On the Galaxy Zoo 1 dataset, we report 95\% classification accuracy, compared to 90\% in previous literature. On Galaxy Zoo 2, we obtain 58\% accuracy and a macro-averaged F1-measure of 0.496. Without retraining, the generalization performance on a new imagery dataset is disappointing at 23\% with a macro-averaged F1-measure at 0.229, but after retraining on a small expert-labeled training set the performance improves to 46\% accuracy and an F1-measure of 0.459. These results show that galaxy classification models trained on the Galaxy Zoo 2 dataset generalize well to other galaxy datasets if a small manually labeled dataset for retraining can be found. 
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l|c|c|c}
+Train/Test	&	GZ1		&	GZ2		&	EXP		\\ \hline
+GZ1			&	0.95	&			&			\\
+GZ2			&			&	0.58	&	0.23	\\
+EXP			&			&			&	0.46
+\end{tabular}
+\end{center}
+\caption{Accuracies for the model trained and evaluated on various testing datasets.}
+\end{table}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{l|c|c|c}
+Train/Test	&	GZ2		&	EXP			\\ \hline
+GZ2			&	0.496	&	0.229		\\
+EXP			&			&	0.459
+\end{tabular}
+\end{center}
+\caption{Macro-averaged F1 measure of the models evaluated on the Hubble classification scheme datasets.}
+\end{table}
 
 \section{Future Goals}
 
