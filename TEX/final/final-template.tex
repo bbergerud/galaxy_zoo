@@ -168,7 +168,7 @@ The model was trained for each dataset in two stages. First, the final softmax l
 
 Training and testing was done on the University of Iowa ARGON high performance computing cluster. ARGON offers a wide range of compute configurations, including nodes equipped with nVidia workstation class GPU accelerators. For performance reasons, GPU acceleration proved necessary to train the inception model, leading to a reduction in training times by a factor of 100. 
 
-Four different models were trained on four different datasets.  One model was trained and tested on the Galaxy Zoo 1 dataset, consisting of the categories elliptical, spiral, and edge-on spiral. Galaxy Zoo 1 is inadequate for Hubble classification purposes as the available class labels don't consider subcategories.  However, there is prior work \cite{2004MNRAS.349...87D} showing 90\% accuracy on classifying a similar dataset, which allows us to compare the performance of our system to earlier work in the field.
+Four different models were trained on four different datasets.  One model was trained and tested on the Galaxy Zoo 1 dataset, consisting of the categories elliptical, spiral, and edge-on spiral. Galaxy Zoo 1 is inadequate for Hubble classification purposes as the available class labels don't consider subcategories.  However, there is prior work \cite{2009MNRAS.399.1367S} showing 90\% accuracy on classifying a similar dataset, which allows us to compare the performance of our system to earlier work in the field.
 
 The three remaining models were trained on the Galaxy Zoo 2 dataset (GZ2), the independent expert-labeled dataset (EXP), and a merged Galaxy Zoo 2 and expert-labeled dataset (GS2-EXP). The model build on GZ2 was tested on GZ2 and EXP, the model built on EXP was tested on EXP and the model built on GZ2-EXP was tested on GZ2-EXP and EXP. This allows us to assess the generalization performance of a classifier trained on the Galaxy Zoo 2 dataset when applied to a new dataset, compared to training on the new dataset alone or training after merging the two datasets.
 
@@ -242,6 +242,7 @@ We would like to acknowledge the work of the Galaxy Zoo team and the countless c
 \bibitem[Kuminski \& Shamir(2016)]{2016ApJS..223...20K} Kuminski, E., \& Shamir, L.\ 2016, ApJS, 223, 20 
 \bibitem[Lintott et al.(2008)]{2008MNRAS.389.1179L} Lintott, C.~J., Schawinski, K., Slosar, A., et al.\ 2008, MNRAS, 389, 1179
 \bibitem[Nair \& Abraham(2010)]{2010ApJS..186..427N} Nair, P.~B., \& Abraham, R.~G.\ 2010, The Astrophysical Journal Supplement Series, 186, 427 
+\bibitem[Shamir(2009)]{2009MNRAS.399.1367S} Shamir, L.\ 2009, Monthly Notices of the Royal Astronomical Society, 399, 1367 
 \bibitem[Skidmore et al.(2015)]{2015RAA....15.1945S} Skidmore, W., TMT International Science Development Teams, \& Science Advisory Committee, T.\ 2015, Research in Astronomy and Astrophysics, 15, 1945 
 \bibitem[Szegedy et al.(2014)]{2014arXiv1409.4842S} Szegedy, C., Liu, W., Jia, Y., et al.\ 2014, arXiv:1409.4842 
 \bibitem[Willett et al.(2013)]{2013MNRAS.435.2835W} Willett, K.~W., Lintott, C.~J., Bamford, S.~P., et al.\ 2013, MNRAS, 435, 2835  
