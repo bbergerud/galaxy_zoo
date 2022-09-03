@@ -1,5 +1,3 @@
-# galaxy_zoo
+# Classifying Galaxies
 
-http://adsabs.harvard.edu/abs/2010ApJS..186..427N
-http://adsabs.harvard.edu/abs/2007AJ....134..579F
-http://adsabs.harvard.edu/abs/2011A%26A...532A..74B
+This was a group project aimed at classifying galaxies onto Hubble's tuning fork as part of CS:55430 (Machine Learning). Our final paper can be found [here](https://github.com/bbergerud/galaxy_zoo/blob/master/TEX/final/final-template.pdf).
